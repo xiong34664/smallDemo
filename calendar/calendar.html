@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>渐变日历</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/calendar.js"></script>
+</head>
+<body>
+<div class="box" id="box">
+    <div id="showDate" class="date"><span></span></div>
+    <div class="amend">
+        <div class="time" id="times">
+            <input type="number" max="2118" min="1920">
+            <input type="number" max="12" min="1">
+        </div>
+        <div class="control" id="control">
+            <span>&gt;</span>
+            <span>&lt;</span>
+        </div>
+    </div>
+    <ul>
+        <li class="one">日</li>
+        <li class="one">一</li>
+        <li class="one">二</li>
+        <li class="one">三</li>
+        <li class="one">四</li>
+        <li class="one">五</li>
+        <li class="one">六</li>
+    </ul>
+    <ul id="calendar" class="clearfix">
+    </ul>
+</div>
+
+</body>
+</html>
