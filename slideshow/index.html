@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>slide</title>
+    <script src="jquery-1.12.2.min.js" type="application/javascript"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        /*双伪元素清除法*/
+        .clearfix:before, .clearfix:after {
+            display: table;
+            content: "";
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+
+        @font-face {
+            font-family: 'icomoon';
+            src: url('fonts/icomoon.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .slider-play-pause:before {
+            content: "\e982";
+            font-family: 'icomoon';
+        }
+
+        .slider-play-pause.paused:before {
+            content: "\e981";
+        }
+
+        .banner {
+            height: 500px;
+            width: 1000px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .imgBox {
+            width: 1000%;
+            height: 100%;
+            position: relative;
+        }
+
+        .imgBox li {
+            float: left;
+            background: #00a4ff;
+            width: 1000px;
+            height: 100%;
+            line-height: 400px;
+            text-align: center;
+            font-size: 50px;
+            color: #fff;
+        }
+
+        .imgBox li:nth-of-type(2n) {
+            background: #1aae52;
+        }
+
+        .list {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 999;
+        }
+
+        .list li {
+            width: 12px;
+            height: 12px;
+            float: left;
+            margin: 0 7px;
+            cursor: pointer;
+            line-height: 0;
+            position: relative;
+
+        }
+
+        .list a {
+            float: left;
+            color: #555;
+            font-size: 14px;
+            line-height: 12px;
+            text-decoration: none;
+            margin-right: 12px;
+        }
+
+        .list a:hover {
+            color: #c40d2e;
+        }
+
+        .list li::before {
+            content: " ";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            margin: 2px;
+            border-radius: 50%;
+            background: #555;
+            transform: scale(1);
+            transition: transform .5s cubic-bezier(.19, 1, .22, 1);
+        }
+
+        .list li:hover::before {
+            margin: 0;
+            padding: 2px;
+        }
+
+        .list .curr::before {
+            transform: scale(0);
+        }
+
+        .list li::after {
+            content: " ";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border: 2px solid #c40d2e;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform .5s cubic-bezier(.19, 1, .22, 1);
+        }
+
+        .list .curr::after {
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body>
+<div class="banner">
+    <ul class="imgBox clearfix">
+        <li>轮播图1</li>
+        <li>轮播图2</li>
+        <li>轮播图3</li>
+        <li>轮播图4</li>
+    </ul>
+    <ul class="list">
+        <a href="javascript:void (0);" class="slider-play-pause"></a>
+    </ul>
+</div>
+</body>
+<script type="application/javascript">
+    $(function () {
+        var index = 0;
+        //图片  张数
+        var imgLength = $(".imgBox > li").length;
+        //图片宽度
+        var imgWidth = $(".imgBox > li").width();
+
+        //创建与图片一样多的  li
+        $(".imgBox > li").each(function () {
+            $(".list").append("<li></li>");
+        }).parent().append($(".imgBox>li:eq(0)").clone(true));  //在imgBox 结尾  添加克隆的第一张  实现滚动
+        //给第一个li  设为当前  显示
+        $(".list >li").eq(0).addClass("curr");
+
+        //点击li  移动  imgBox
+        $(".list").on("click ", "li", function () {
+            console.log(1);
+            if (index === imgLength) {
+                $(".imgBox").css("left", 0);
+            }
+            index = $(this).index() - 1;
+            move(index);
+
+        });
+        //点击暂停
+        $(".slider-play-pause").on("click", function () {
+            $(this).toggleClass("paused");
+            clearInterval(timerId);
+            if (!$(this).is(".paused")) {
+                timerId = setInterval(function () {
+                    next()
+                }, 3000)
+            }
+        });
+        //起点终点   用来判断  滑动的距离  当距离  小于100 时  不滚动
+        var target = 0;
+        //按住  imgBox  来拖动
+        $(".imgBox").on("mousedown", function (e) {
+            clearInterval(timerId);
+            var imgX = e.pageX;
+            $(document).on("mousemove", function (e) {
+                //当拖动的  是第一张 时  向右拖   立即跳转到  克隆的那一张
+                // 当是克隆的那一张时   向左拖动  跳回第一张  以实现无缝拖动
+                target = e.pageX - imgX;
+                if (index === 0 || index === imgLength) {
+                    if (e.pageX > imgX) {
+                        index = imgLength;
+                        $(".imgBox").css({left: -imgLength * imgWidth + "px"})
+                    } else {
+                        index = 0;
+                        $(".imgBox").css({left: 0})
+                    }
+                }
+                $(".imgBox").css({left: target - index * imgWidth + "px"});
+                window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+            })
+        });
+
+
+        $(document).mouseup(function (e) {
+            clearInterval(timerId);
+            $(document).off("mousemove");
+            //滑动的距离  当距离  小于100 时  不滚动
+            if (target > 150) {
+                //大于100时  向右滚动
+                prev();
+                console.log("右");
+            } else if (target < -150) {
+                //小于-100时  向左滚动
+                console.log("左");
+                next()
+            } else {
+                //滚回  原来位置
+                move(index)
+            }
+            if (!$(".slider-play-pause").is(".paused")) {
+                timerId = setInterval(function () {
+                    next()
+                }, 3000);
+            }
+            target = 0;
+        });
+
+        //1.先获取手指在轮播图元素上  一个滑动方向(左右)
+
+        //手指触摸开始记录手指所在坐标X
+        // 比大小
+        var startX, endX;
+        //注册滑动事件
+        $(".imgBox").on('touchstart', function (e) {
+            //手指开始时记录手指所在坐标
+            startX = e.originalEvent.touches[0].clientX;
+            clearInterval(timerId);
+        });
+
+        $(".imgBox").on("touchend", function (e) {
+            //手指结束时记录手指所在坐标
+            endX = e.originalEvent.changedTouches[0].clientX;
+
+            //控制精度
+            //获取每次运动的距离,当距离大于一定值时认为是有方向的
+            var distance = Math.abs(startX - endX);
+
+            if( distance > 50) {
+                //2.根据获得到的方向选择上一张或者下一张
+                startX < endX ? prev() : next()
+            }
+            timerId = setInterval(function () {
+                next()
+            }, 3000);
+        })
+
+        //下一张
+        function next() {
+            if (++index > imgLength) {
+                $(".imgBox").css("left", 0);
+                index = 1;
+            }
+            move(index);
+        }
+
+        //上一张
+        function prev() {
+            if (--index < 0) {
+                $(".imgBox").css("left", -imgLength * imgWidth);
+                index = imgLength - 1;
+            }
+            move(index);
+        }
+
+        //传入索引值  imgBox 移动到相应位置
+        function move(index) {
+            var liIndex = index;
+            //如果当前是  克隆的那一张图片  即无缝滚动  里的  第一张  将li的第一个添加curr
+            liIndex = liIndex === $(".list>li").length ? 0 : liIndex;
+            $(".list> li").eq(liIndex).addClass("curr").siblings().removeClass("curr");
+            $(".imgBox").stop().animate({left: -index * imgWidth});
+        }
+
+        // 创建  定时器
+        var timerId = setInterval(function () {
+            next()
+        }, 3000)
+
+
+
+    })
+</script>
+</html>
