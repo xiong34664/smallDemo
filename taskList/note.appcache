@@ -2,11 +2,14 @@ CACHE MANIFEST
 
 #需要缓存的文件清单列表
 #CACHE:
+ favicon.ico
+ index.html
  css/bootstrap.css
  css/main.css
  js/jquery-1.12.2.js
  js/bootstrap.min.js
  js/template-web.js
+ js/main.js
  fonts/Monoton-Regular.ttf
 
 #配置每一次都需要重新从服务器获取的文件清单列表
