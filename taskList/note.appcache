@@ -1,0 +1,18 @@
+CACHE MANIFEST
+
+#需要缓存的文件清单列表
+#CACHE:
+ css/bootstrap.css
+ css/main.css
+ js/jquery-1.12.2.js
+ js/bootstrap.min.js
+ js/template-web.js
+ fonts/Monoton-Regular.ttf
+
+#配置每一次都需要重新从服务器获取的文件清单列表
+#NETWORK:
+
+
+#配置如果文件无法获取则使用指定的文件进行替代
+#FALLBACK:
+# /:代表所有文件
