@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scale=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <script src="js/zepto.min.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        .box {
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            background-image: url(images/bg.jpg);
+            background-repeat: no-repeat;
+            background-size: 360px 720px;
+        }
+    </style>
+</head>
+<body>
+<script>
+
+    var t = $(document).height() - 120;
+    var l = $(document).width() - 120;
+
+    for (var i = 0; i < 18; i++) {
+        var box = '<div class="box"></div>';
+        $("body").append(box)
+    }
+
+    var row = -1;
+    $(".box").each(function (index, ele) {
+        if (index % 3 == 0) {
+            row++
+        }
+        $(ele).css({
+            backgroundPositionX: -120 * (index % 3) + "px",
+            backgroundPositionY: -120 * row + "px",
+            left: Math.random() * l,
+            top: Math.random() * t,
+            transform: "rotateZ(" + Math.random() * 90 + "deg)"
+        })
+        ;
+    })
+    var startX, startY, endX, endY, moveX, moveY;
+    $(document).on("touchstart", function (e) {
+        var that = e.targetTouches[0];
+        startX = that.clientX - $(e.target).position().left;
+        startY = that.clientY - $(e.target).position().top;
+        console.log($(e.target));
+    });
+    $(document).on("touchmove", function (e) {
+        var that = e.targetTouches[0];
+        moveX = that.clientX - startX;
+        moveY = that.clientY - startY;
+        if (moveX < 0) {
+            moveX = 0;
+        } else if (moveX > l) {
+            moveX = l;
+        }
+        if (moveY < 0) {
+            moveY = 0;
+        } else if (moveY > t) {
+            moveY = t;
+        }
+        $(e.target).css({left: moveX, top: moveY})
+    });
+    $(document).on("touchend", function (e) {
+        var that = e.changedTouches[0];
+        endX = that.clientX;
+        endY = that.clientY;
+        moveX = Math.floor(endX / 120) * 120;
+        moveY = Math.floor(endY / 120) * 120;
+        $(e.target).animate({left: moveX, top: moveY,transform: "rotateZ(0deg)"})
+    });
+</script>
+</body>
+</html>

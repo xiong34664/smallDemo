@@ -1,0 +1,147 @@
+/**
+ * Created by Administrator on 2018/6/10 21:29.
+ */
+.sidebar {
+  height: 100vh;
+  width: 60%;
+  position: relative;
+  background: #fff;
+}
+.box {
+  opacity: .5;
+  width: 100%;
+  max-width: 640px;
+  min-width: 320px;
+  height: 100vh;
+  background: #eee;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+}
+.box .head {
+  height: 60px;
+  line-height: 60px;
+  color: #fff;
+  background-image: -webkit-linear-gradient(left, #4F8CFE, #38B8FE);
+  text-align: center;
+}
+.box .head ul {
+  display: flex;
+}
+.box .head ul li {
+  flex: 1;
+}
+.box .head ul li:nth-of-type(2) {
+  flex: 5;
+}
+.box .head ul li:last-child {
+  font-size: 40px;
+  font-weight: 200;
+}
+.box .head ul li .user-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  margin: 10px auto;
+}
+.box .main {
+  flex: 1;
+  background: #fff;
+  overflow: scroll;
+}
+.box .main .search {
+  width: 98%;
+  height: 30px;
+  background: #e2e2e2;
+  border-radius: 5px;
+  margin: 5px auto;
+  line-height: 30px;
+  text-align: center;
+  color: #888;
+}
+.box .main ul {
+  display: flex;
+  flex-direction: column;
+}
+.box .main ul li {
+  height: 60px;
+  border-bottom: 1px solid #eee;
+  color: #000;
+  position: relative;
+}
+.box .main ul li .msg {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  transition: all .8s;
+  left: 0;
+  background-color: #fff;
+  z-index: 2;
+}
+.box .main ul li .msg .logo {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #0b7dde;
+  margin: 5px;
+}
+.box .main ul li .msg .msg-box {
+  position: absolute;
+  top: 0;
+  padding-left: 56px;
+  left: 0;
+  width: 100%;
+}
+.box .main ul li .msg .msg-box .title {
+  position: absolute;
+  top: 2px;
+  font-size: 16px;
+}
+.box .main ul li .msg .msg-box .con {
+  position: absolute;
+  top: 34px;
+}
+.box .main ul li .msg .msg-box .time {
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  top: 12px;
+  color: #8c8c8c;
+}
+.box .main ul li .edit {
+  position: absolute;
+  right: 0;
+  line-height: 59px;
+  text-align: center;
+  color: #fff;
+  width: 0;
+  transition: all .8s;
+  overflow: hidden;
+  display: flex;
+}
+.box .main ul li .edit span {
+  flex: 1;
+  background: #ffdb44;
+  float: left;
+}
+.box .main ul li .edit span:last-child {
+  background: #ff0022;
+}
+.box .foot {
+  height: 60px;
+  line-height: 60px;
+  border-top: 1px solid #eee;
+  background: #fff;
+  color: #47BAFE;
+  text-align: center;
+}
+.box .foot ul {
+  display: flex;
+}
+.box .foot ul li {
+  flex: 1;
+}
+/*# sourceMappingURL=qq.css.map */

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择器</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: '微软雅黑';
+            background-color: #F7F7F7;
+        }
+
+        .wrapper {
+            width: 1024px;
+            margin: 0 auto;
+        }
+
+        .wrapper > section {
+            min-height: 300px;
+            margin-bottom: 30px;
+            box-shadow: 1px 1px 4px #DDD;
+            background-color: #FFF;
+        }
+
+        .wrapper > header {
+            text-align: center;
+            line-height: 1;
+            padding: 20px;
+            margin-bottom: 10px;
+            font-size: 30px;
+        }
+
+        .wrapper section > header {
+            line-height: 1;
+            padding: 10px;
+            font-size: 22px;
+            color: #333;
+            background-color: #EEE;
+        }
+
+        .wrapper .wrap-box {
+            padding: 20px;
+            display: flex;
+            height: 300px;
+        }
+        .row .box{
+            flex: 1;
+            height: 260px;
+            margin:0 5px;
+            background-color: #1d8dfa;
+        }
+        .column .wrap-box{
+            flex-direction: column;
+        }
+        .column .box{
+            flex: 1;
+            height: 50px;
+            margin:5px 0;
+            background-color: #1d8dfa;
+        }
+        .justify-content .wrap-box{
+            justify-content:space-around;
+        }
+        .justify-content.space-between .wrap-box{
+            justify-content:space-between;
+        }
+        .justify-content .box{
+            width: 200px;
+            height: 200px;
+            background: #1d8dfa;
+            margin: 10px;
+        }
+        .align-items .wrap-box {
+            align-items: flex-end;
+        }
+        .align-items .box{
+            width: 200px;
+            height: 33.3%;
+            background: #1d8dfa;
+            margin: 10px;
+        }
+        .align-self .wrap-box {
+            align-items: flex-start;
+        }
+        .align-self .box{
+            width: 200px;
+            height: 33.3%;
+            background: #1d8dfa;
+            margin: 10px;
+        }
+        .align-self .box:last-child{
+            align-self: flex-end;
+        }
+        .align-self .box:first-child{
+            align-self: center;
+        }
+        .flex-wrap .wrap-box{
+            flex-wrap:wrap;
+        }
+        .flex-wrap .box{
+            width: 200px;
+            height: 33.3%;
+            background: #1d8dfa;
+            margin: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <header>CSS3-1</header>
+    <section class="row">
+        <header>row</header>
+        <div class="wrap-box">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </section>
+    <section class="column">
+        <header>column</header>
+        <div class="wrap-box">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </section>
+    <section class="justify-content">
+        <header>justify-content space-around</header>
+        <div class="wrap-box">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </section>
+    <section class="justify-content space-between">
+        <header>justify-content space-between</header>
+        <div class="wrap-box">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </section>
+    <section class="align-items">
+        <header>align-items</header>
+        <div class="wrap-box">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </section>
+    <section class="align-self">
+        <header>align-self</header>
+        <div class="wrap-box">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </section>
+    <section class="flex-wrap">
+        <header>flex-wrap</header>
+        <div class="wrap-box">
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+            <div class="box"></div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
